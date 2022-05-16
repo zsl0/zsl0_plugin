@@ -10,6 +10,8 @@ package com.zsl.custombox.common.core.http;
 public enum ResponseResultStatus {
     SUCCESS(2000, "操作成功"),
     FAILED(4000, "操作失败"),
+    NOT_LOGIN(4001, "登录失败"),
+    AUTHENTICATION_FAILED(4002, "认证失败"),
     ;
     private Integer code;
     private String msg;

@@ -22,6 +22,13 @@ public class ApplicationUtil implements ApplicationContextAware {
     }
 
     /**
+     * 获取容器对象
+     */
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+    /**
      * 通过类名称和类型获取bean
      */
     public static <T> T getBean(String beanName, Class<T> clazz) {

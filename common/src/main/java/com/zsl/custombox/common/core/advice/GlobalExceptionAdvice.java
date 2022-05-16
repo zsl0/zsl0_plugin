@@ -1,7 +1,6 @@
 package com.zsl.custombox.common.core.advice;
 
 import com.zsl.custombox.common.core.exception.ApiException;
-import com.zsl.custombox.common.core.exception.CustomException;
 import com.zsl.custombox.common.core.http.ResponseResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

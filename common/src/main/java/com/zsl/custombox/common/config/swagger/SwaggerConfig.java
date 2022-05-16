@@ -39,7 +39,7 @@ public class SwaggerConfig {
                 .groupName(swaggerProperties.getApplicationVersion())
 
                 // 定义是否开启swagger,false为关闭，可以通过yaml配置变量控制
-                .enable(swaggerProperties.getEnable())
+                .enable(swaggerProperties.getEnable() != null)
 
                 // 选择那些接口作为swagger的doc发布
                 .select()

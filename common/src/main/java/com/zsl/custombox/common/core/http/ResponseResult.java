@@ -60,4 +60,9 @@ public class ResponseResult<T> {
     public static <T> ResponseResult<T> custom(Integer code, String msg, T data) {
         return newInstance(code, msg, data);
     }
+
+    public static <T> ResponseResult<T> custom(ResponseResultStatus status, T data) {
+        return newInstance(status.getCode(), status.getMsg(), data);
+    }
+
 }

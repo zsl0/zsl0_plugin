@@ -20,7 +20,7 @@ import java.util.Objects;
  * @Email 249269610@qq.com
  */
 public class JsonUtil {
-    private static ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     static {
         // init objectMapper
@@ -42,7 +42,7 @@ public class JsonUtil {
      */
     public static String obj2Str(Object obj) {
         if (Objects.isNull(obj)) {
-            return null;
+            return "";
         }
 
         if (obj instanceof String) {
@@ -53,7 +53,7 @@ public class JsonUtil {
             return objectMapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 

@@ -1,5 +1,8 @@
 package com.zsl.custombox.common.core.exception;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 /**
  * @Author zsl
  * @Date 2022/5/15 20:07
