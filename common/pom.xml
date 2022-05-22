@@ -10,12 +10,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>common</artifactId>
+    <packaging>pom</packaging>
     <description>公共组件（暂定不同模块都需要的工具、配置、实体对象）</description>
+    <modules>
+        <module>zsl-spring-boot-starter-log</module>
+        <module>zsl-common</module>
+        <module>zsl-spring-boot-starter-security-admin</module>
+    </modules>
     <name>common</name>
 
     <properties>
         <jdk.version>11</jdk.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <org.projectlombok.version>1.18.24</org.projectlombok.version>
     </properties>
 
     <dependencies>
@@ -67,6 +74,11 @@
                     <source>${jdk.version}</source> <!-- depending on your project -->
                     <target>${jdk.version}</target> <!-- depending on your project -->
                     <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${org.projectlombok.version}</version>
+                        </path>
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
