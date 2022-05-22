@@ -29,6 +29,7 @@ Custom_box (自定义匣子)
 | mysql | 8.0.25 |
 | swagger | 3.0.0 |
 | JWT | 3.18.2 |
+| hutool | 5.7.16 |
 
 
 ## 架构

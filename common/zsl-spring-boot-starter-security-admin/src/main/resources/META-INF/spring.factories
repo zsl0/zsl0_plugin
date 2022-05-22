@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.AutoConfigurationImportListener=\
+com.zsl.custombox.security.admin.config.SecurityAdminAutoConfiguration
