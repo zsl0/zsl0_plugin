@@ -30,7 +30,7 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 白名单 todo 认证是否留到最后
+        // todo 白名单
 
         // 获取token
         String token = request.getHeader("Authentication");
