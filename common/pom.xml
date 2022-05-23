@@ -74,6 +74,7 @@
                     <source>${jdk.version}</source> <!-- depending on your project -->
                     <target>${jdk.version}</target> <!-- depending on your project -->
                     <annotationProcessorPaths>
+<!--                        防止使用lombok 出现Java符号找不到错误-->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
