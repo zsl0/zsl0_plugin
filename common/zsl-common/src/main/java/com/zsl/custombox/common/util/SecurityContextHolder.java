@@ -1,6 +1,6 @@
-package com.zsl.custombox.security.admin.core.util;
+package com.zsl.custombox.common.util;
 
-import com.zsl.custombox.security.admin.core.model.Authentication;
+import com.zsl.custombox.common.model.authentication.Authentication;
 
 /**
  * 存储全局用户认证信息 todo 定义凭证对象接口

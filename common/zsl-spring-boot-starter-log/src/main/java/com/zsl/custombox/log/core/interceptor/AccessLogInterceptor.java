@@ -72,12 +72,12 @@ public class AccessLogInterceptor implements HandlerInterceptor {
         systemLogContext.setRespTime(System.currentTimeMillis() - systemLogContext.getStartTime().getTime());
 
         // todo 获取返回对象
-        System.out.println("afterCompletion:" + handler);
+//        System.out.println("afterCompletion:" + handler);
 
         // format log
         StringBuilder requestStr = new StringBuilder();
         List<Object> requestArgs = new ArrayList<>();
-        requestStr.append("\n=========================== LogRecord Start ===========================\n");
+        requestStr.append("\n=========================== AccessLog ===========================\n");
         requestStr.append(String.format("       %-10s: {}\n", "userId"));
         requestArgs.add(systemLogContext.getUserId());
         requestStr.append(String.format("       %-10s: {}\n", "requestNo"));
@@ -100,7 +100,7 @@ public class AccessLogInterceptor implements HandlerInterceptor {
         requestArgs.add(systemLogContext.getRespMsg());
         requestStr.append(String.format("       %-10s: {}\n", "respBody"));
         requestArgs.add(systemLogContext.getRespBody());
-        requestStr.append("=========================== LogRecord End ===========================\n");
+        requestStr.append("=========================== AccessLog ===========================\n");
         log.info(requestStr.toString(), requestArgs.toArray());
 
         // todo 日志入库
