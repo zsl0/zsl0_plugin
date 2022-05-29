@@ -1,4 +1,4 @@
-package com.zsl.custombox.common.entity;
+package com.zsl.custombox.common.model.annotation;
 
 import com.zsl.custombox.common.config.demo.DemoConfiguration;
 import org.springframework.context.annotation.Import;

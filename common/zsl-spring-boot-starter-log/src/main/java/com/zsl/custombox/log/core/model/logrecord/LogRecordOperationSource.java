@@ -1,9 +1,8 @@
 package com.zsl.custombox.log.core.model.logrecord;
 
 import com.zsl.custombox.log.core.annotation.LogRecord;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.zsl.custombox.log.core.service.operator.IOperatorGetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.expression.AnnotatedElementKey;
 
 import java.lang.reflect.Method;
@@ -21,6 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class LogRecordOperationSource {
     private Map<AnnotatedElementKey, List<LogRecordOpr>> operationCache = new ConcurrentHashMap<>(64);
+
+    @Autowired
+    IOperatorGetService operatorGetService;
 
     /**
      * 处理注解信息，并缓存（注意@see 不理解find多次区别）
@@ -49,29 +51,26 @@ public class LogRecordOperationSource {
     private List<LogRecordOpr> process(LogRecord annotation) {
         StringBuilder sb = new StringBuilder();
         List<LogRecordOpr> oprs = new ArrayList<>();
+
+        String operator = annotation.operator();
+        if ("".equals(operator)) {
+            // 获取当前UserID
+            operator = operatorGetService.getUser().getUserId();
+        } else {
+            operator = annotation.operator();
+        }
+        oprs.add(new LogRecordOpr(String.format("用户：%s,", operator), false));
+
+
         oprs.add(new LogRecordOpr(String.format("操作：%s,", annotation.bizNo()), false));
 
         String content = annotation.content();
 
-        String operator = annotation.operator();
-        if ("".equals(operator)) {
-            // todo 获取当前UserID
 
-        } else {
-
-        }
-        oprs.add(new LogRecordOpr(String.format("用户：%s,", operator), false));
 
         // todo 处理@LogRecord其它信息
 
         return oprs;
     }
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    static class LogRecordOpr {
-        private String spEl;
-        private boolean function;
-    }
 }

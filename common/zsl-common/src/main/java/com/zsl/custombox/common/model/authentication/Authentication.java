@@ -1,4 +1,4 @@
-package com.zsl.custombox.security.admin.core.model;
+package com.zsl.custombox.common.model.authentication;
 
 /**
  * 认证接口
@@ -13,6 +13,8 @@ public interface Authentication {
     String getUuid();
 
     Object getDetails();
+
+    String getUserId();
 
     boolean isAuthenticated();
 }

@@ -1,6 +1,7 @@
 package com.zsl.custombox.security.admin.core.model;
 
-import com.zsl.custombox.common.entity.BaseBean;
+import com.zsl.custombox.common.model.BaseBean;
+import com.zsl.custombox.common.model.authentication.Authentication;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,8 @@ public class DefaultUserDetails extends BaseBean implements Authentication {
     private Object details;
     // uuid
     private String uuid;
+    // userId
+    private String userId;
     // 是否官方自定义认证 对象
     private Boolean authenticated = false;
 
@@ -31,6 +34,11 @@ public class DefaultUserDetails extends BaseBean implements Authentication {
     @Override
     public Object getDetails() {
         return details;
+    }
+
+    @Override
+    public String getUserId() {
+        return userId;
     }
 
     public void setDetails(Object details) {

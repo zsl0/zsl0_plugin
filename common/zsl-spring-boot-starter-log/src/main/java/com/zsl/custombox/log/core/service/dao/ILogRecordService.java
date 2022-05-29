@@ -1,6 +1,7 @@
 package com.zsl.custombox.log.core.service.dao;
 
-import com.zsl.custombox.log.core.annotation.LogRecord;
+
+import com.zsl.custombox.log.core.model.logrecord.LogRecord;
 
 /**
  * @Author zsl

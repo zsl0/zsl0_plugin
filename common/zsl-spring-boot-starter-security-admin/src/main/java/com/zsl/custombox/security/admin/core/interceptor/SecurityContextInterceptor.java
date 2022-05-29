@@ -1,8 +1,7 @@
 package com.zsl.custombox.security.admin.core.interceptor;
 
 import com.zsl.custombox.common.core.exception.AuthenticationFailedException;
-import com.zsl.custombox.security.admin.core.util.SecurityContextHolder;
-import com.zsl.custombox.security.admin.core.util.ServletContextHolder;
+import com.zsl.custombox.common.util.SecurityContextHolder;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,8 +20,6 @@ public class SecurityContextInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (SecurityContextHolder.getAuth().isAuthenticated()) {
-            ServletContextHolder.setRequest(request);
-            ServletContextHolder.setResponse(response);
             return true;
         }
         // todo 删除redis token
