@@ -1,7 +1,7 @@
-package com.zsl.custombox.log.core.util;
+package com.zsl.custombox.common.util;
 
 
-import com.zsl.custombox.log.core.model.systemlog.SystemLogContext;
+import com.zsl.custombox.common.model.log.SystemLogContext;
 
 /**
  * 线程安全日志记录

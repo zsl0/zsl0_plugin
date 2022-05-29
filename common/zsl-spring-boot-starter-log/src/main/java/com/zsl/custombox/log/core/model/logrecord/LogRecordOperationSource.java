@@ -55,7 +55,7 @@ public class LogRecordOperationSource {
         String operator = annotation.operator();
         if ("".equals(operator)) {
             // 获取当前UserID
-            operator = operatorGetService.getUser().getUserId();
+            operator = operatorGetService.getUser().getUserId().toString();
         } else {
             operator = annotation.operator();
         }

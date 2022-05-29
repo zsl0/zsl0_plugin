@@ -14,7 +14,7 @@ public interface Authentication {
 
     Object getDetails();
 
-    String getUserId();
+    Long getUserId();
 
     boolean isAuthenticated();
 }

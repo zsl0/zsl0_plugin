@@ -1,9 +1,10 @@
-package com.zsl.custombox.log.core.model.systemlog;
+package com.zsl.custombox.common.model.log;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 日志记录上下文
@@ -25,7 +26,7 @@ public class SystemLogContext {
     // 统一资源接口uri
     private String uri;
     // 参数
-    private String[] param;
+//    private String params;
     // 请求方法(GET、POST...)
     private String method;
     // 请求时间
@@ -39,5 +40,5 @@ public class SystemLogContext {
     // 响应信息
     private String respMsg;
     // 响应体
-    private String respBody;
+//    private String respBody;
 }
