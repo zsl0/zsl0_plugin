@@ -5,7 +5,7 @@ import com.zsl.custombox.log.core.model.logrecord.LogRecordContext;
 import com.zsl.custombox.log.core.model.MethodExceptionResult;
 import com.zsl.custombox.log.core.model.logrecord.LogRecordExpressionEvaluator;
 import com.zsl.custombox.log.core.model.logrecord.LogRecordValueParser;
-import com.zsl.custombox.log.core.service.dao.ILogRecordService;
+import com.zsl.custombox.log.core.service.record.ILogRecordService;
 import com.zsl.custombox.log.core.service.function.IFunctionService;
 import org.apache.logging.log4j.util.Strings;
 import org.aspectj.lang.ProceedingJoinPoint;

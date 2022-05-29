@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 /**
- * 获取Request、Response
+ * Request、Response相关操作
  *
  * @Author zsl
  * @Date 2022/5/16 21:28
@@ -30,4 +30,11 @@ public class ServletContextHolder {
         return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getResponse();
     }
 
+    /**
+     * 获取ip地址
+     */
+    public static String getIp() {
+        HttpServletRequest request = getRequest();
+        return request.getHeader("host");
+    }
 }

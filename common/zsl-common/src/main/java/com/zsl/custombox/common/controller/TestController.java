@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Email 249269610@qq.com
  */
 @RestController
-public class DemoController {
+public class TestController {
 
     @RequestMapping("test")
     public String demo() {
