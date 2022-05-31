@@ -1,16 +1,17 @@
-package com.zsl.custombox.common.config.swagger;
+package com.zsl.custombox.swagger.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
+ * swagger配置资源
+ *
  * @Author zsl
- * @Date 2022/5/15 17:46
+ * @Date 2022/5/31 22:21
  * @Email 249269610@qq.com
  */
-@Component
-@ConfigurationProperties(prefix = "api-documentation.swagger")
-public class SwaggerProperties {
+@ConfigurationProperties(prefix = "swagger")
+public class SwaggerConfigurationProperties {
     private Boolean enable; // 是否开启swagger
     private String applicationName; // 应用程序名称
     private String applicationVersion;  // 应用程序版本
