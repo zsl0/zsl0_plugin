@@ -15,7 +15,8 @@
     <modules>
         <module>zsl-spring-boot-starter-log</module>
         <module>zsl-common</module>
-        <module>zsl-spring-boot-starter-security-admin</module>
+        <module>zsl-spring-boot-starter-security-auth</module>
+        <module>zsl-spring-boot-starter-swagger</module>
     </modules>
     <name>common</name>
 

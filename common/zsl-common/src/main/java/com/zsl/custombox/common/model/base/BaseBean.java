@@ -1,4 +1,4 @@
-package com.zsl.custombox.common.model;
+package com.zsl.custombox.common.model.base;
 
 import java.io.Serializable;
 
