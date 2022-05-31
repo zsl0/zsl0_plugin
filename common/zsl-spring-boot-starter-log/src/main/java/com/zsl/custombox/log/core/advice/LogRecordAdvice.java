@@ -1,15 +1,11 @@
 package com.zsl.custombox.log.core.advice;
 
-import com.zsl.custombox.log.core.annotation.LogRecord;
-import com.zsl.custombox.log.core.model.logrecord.LogRecordContext;
+import com.zsl.custombox.log.core.annotation.LogRecordAnnotation;
 import com.zsl.custombox.log.core.model.MethodExceptionResult;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
@@ -19,58 +15,28 @@ import java.lang.reflect.Method;
  * @Email 249269610@qq.com
  */
 @Aspect
-@Component
 public class LogRecordAdvice {
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
-    @Around("@annotation(com.zsl.custombox.log.core.annotation.LogRecord)")
+    @Around("@annotation(com.zsl.custombox.log.core.annotation.LogRecordAnnotation)")
     public Object logRecord(ProceedingJoinPoint point) throws Throwable {
-        return execute(point, point.getTarget(), ((MethodSignature) point.getSignature()).getMethod(), point.getArgs());
-    }
-
-    private Object execute(ProceedingJoinPoint point, Object target, Method method, Object[] args) throws Throwable {
         Object ref = null;
 
-        LogRecordContext.putEmptySpan();
+        Method method = getMethod(point);
+        LogRecordAnnotation annotation = getAnnotation(method);
 
         MethodExceptionResult exceptionResult = new MethodExceptionResult(true, null, "");
-        // 拆分注解信息存储为List等待执行
-        /**
-         * List     Operations          operations
-         * List     String              spElTemplates
-         * Map      <String, String>    functionNameAndReturnMap
-         *
-         *         operations = logRecordOperationSource.computeLogRecordOperations(method, targetClass);
-         *         List<String> spElTemplates = getBeforeExecuteFunctionTemplate(operations);
-         *         //业务逻辑执行前的自定义函数解析
-         *         functionNameAndReturnMap = processBeforeExecuteFunctionTemplate(spElTemplates, targetClass, method, args);
-         *
-         *
-         *
-         *         if (!CollectionUtils.isEmpty(operations)) {
-         *             recordExecute(ret, method, args, operations, targetClass,
-         *                     methodExecuteResult.isSuccess(), methodExecuteResult.getErrorMsg(), functionNameAndReturnMap);
-         *         }
-         */
-
-        // 执行List中自定义函数
+        // 解析日志注解信息可按自定义规则处理
 
         try {
             ref = point.proceed();
         } catch (Throwable throwable) {
             exceptionResult = new MethodExceptionResult(false, throwable, throwable.getMessage());
         }
-        // 解析List中SpEL
+        // 解析SpEL
 
-        try {
-            // 存储日志
+        // 存储日志
 
-        } catch (Throwable t) {
-            log.error("记录操作日志失败，不影响业务执行！", t);
-        } finally {
-            // 清理 Context
-            LogRecordContext.clear();
-        }
+        // 清理 Context
+
         // 执行失败将异常抛出
         if (!exceptionResult.isSuccess()) {
             throw exceptionResult.getThrowable();
@@ -88,8 +54,8 @@ public class LogRecordAdvice {
     /**
      * 获取注解
      */
-    private LogRecord getAnnotation(Method method) {
-        LogRecord annotation = method.getAnnotation(LogRecord.class);
+    private LogRecordAnnotation getAnnotation(Method method) {
+        LogRecordAnnotation annotation = method.getAnnotation(LogRecordAnnotation.class);
         return annotation;
     }
 }

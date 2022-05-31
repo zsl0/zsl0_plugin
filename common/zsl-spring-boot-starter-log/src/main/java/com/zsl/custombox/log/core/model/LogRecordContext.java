@@ -1,4 +1,4 @@
-package com.zsl.custombox.log.core.model.systemlog;
+package com.zsl.custombox.log.core.model;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @Data
 @Accessors(chain = true)
-public class SystemLogContext {
+public class LogRecordContext {
     // =========================== request data ===========================
     // 用户id(匿名为0)
     private Long userId;
