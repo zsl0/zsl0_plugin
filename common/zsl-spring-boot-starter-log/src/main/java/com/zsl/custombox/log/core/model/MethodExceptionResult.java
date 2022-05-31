@@ -17,5 +17,5 @@ import lombok.NoArgsConstructor;
 public class MethodExceptionResult {
     private boolean success;
     private Throwable throwable;
-    private String errorMsg;
+    private String msg;
 }

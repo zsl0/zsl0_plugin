@@ -2,7 +2,6 @@ package com.zsl.custombox.log.core.model.logrecord;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,12 +21,7 @@ public class LogRecordContext {
      * 压栈
      */
     private static void push(Map<String, Object> map) {
-        Stack<Map<String, Object>> maps = variableMapStack.get();
-        if (Objects.isNull(maps)) {
-            maps = new Stack<>();
-            variableMapStack.set(maps);
-        }
-        maps.push(map);
+        variableMapStack.get().push(map);
     }
 
     /**
@@ -64,7 +58,7 @@ public class LogRecordContext {
     }
 
     private static boolean isEmpty() {
-        return variableMapStack.get().isEmpty();
+        return variableMapStack.get().firstElement().isEmpty();
     }
 
     //  ==================================== 向外暴露Context操作 ====================================
@@ -94,7 +88,7 @@ public class LogRecordContext {
      * 清除上下文
      */
     public static void clear() {
-        pop();
+        Map<String, Object> pop = pop();
         // 若是最后一个，则清理栈
         if (isEmpty()) {
             clearStack();

@@ -1,6 +1,6 @@
 package com.zsl.custombox.common.config.demo;
 
-import com.zsl.custombox.common.model.annotation.EnableDemoAnnotation;
+import com.zsl.custombox.common.entity.EnableDemoAnnotation;
 import org.springframework.context.annotation.ImportAware;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
