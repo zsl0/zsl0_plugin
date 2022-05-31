@@ -15,7 +15,8 @@
     <modules>
         <module>zsl-spring-boot-starter-log</module>
         <module>zsl-common</module>
-        <module>zsl-spring-boot-starter-security-admin</module>
+        <module>zsl-spring-boot-starter-security-auth</module>
+        <module>zsl-spring-boot-starter-swagger</module>
     </modules>
     <name>common</name>
 
@@ -51,12 +52,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-        <!--        API文档-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
-        </dependency>
+
         <!--        hutool-->
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -74,6 +70,7 @@
                     <source>${jdk.version}</source> <!-- depending on your project -->
                     <target>${jdk.version}</target> <!-- depending on your project -->
                     <annotationProcessorPaths>
+<!--                        防止使用lombok 出现Java符号找不到错误-->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>

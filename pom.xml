@@ -7,8 +7,6 @@
     <modules>
         <module>common</module>
         <module>authentication</module>
-        <module>zsl-common</module>
-        <module>zsl-common</module>
     </modules>
 
     <parent>

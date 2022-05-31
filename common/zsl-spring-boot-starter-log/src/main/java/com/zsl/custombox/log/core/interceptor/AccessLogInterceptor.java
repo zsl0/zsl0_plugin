@@ -1,7 +1,9 @@
 package com.zsl.custombox.log.core.interceptor;
 
-import com.zsl.custombox.log.core.model.LogRecordContext;
-import com.zsl.custombox.log.core.util.LogRecordContextHolder;
+import com.zsl.custombox.common.util.SecurityContextHolder;
+import com.zsl.custombox.common.util.ServletContextHolder;
+import com.zsl.custombox.common.model.log.SystemLogContext;
+import com.zsl.custombox.common.util.SystemLogContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -9,12 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
- * 访问日志
+ * 访问记录(系统日志)
  *  todo 实现@LogRecord注解实现操作日志
  *
  * @Author zsl
@@ -28,16 +31,15 @@ public class AccessLogInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 创建全局日志记录上下文 todo 获取数据(实现工具类)
 
-        LogRecordContext logRecordContext = new LogRecordContext()
-                .setUserId(0L)
+        SystemLogContext systemLogContext = new SystemLogContext()
+                .setUserId(SecurityContextHolder.getAuth().getUserId())
                 .setRequestNo(0L)// 可以使用雪花算法获取64位唯一id
-                .setIp("127.0.0.1")
+                .setIp(ServletContextHolder.getIp())
                 .setUri(request.getRequestURI())
-                .setParam(new String[]{"username=zsl", "password=123456"})
                 .setMethod(request.getMethod())
                 .setStartTime(new Date(System.currentTimeMillis()));
         // 存储全局日志记录上下文
-        LogRecordContextHolder.set(logRecordContext);
+        SystemLogContextHolder.set(systemLogContext);
 /*        // format log
         StringBuilder requestStr = new StringBuilder();
         List<Object> requestArgs = new ArrayList<>();
@@ -68,44 +70,39 @@ public class AccessLogInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        LogRecordContext logRecordContext = LogRecordContextHolder.get();
-        logRecordContext.setRespTime(System.currentTimeMillis() - logRecordContext.getStartTime().getTime());
-
-        // todo 获取返回对象
-        System.out.println(handler);
+        SystemLogContext systemLogContext = SystemLogContextHolder.get();
+        systemLogContext.setRespTime(System.currentTimeMillis() - systemLogContext.getStartTime().getTime());
 
         // format log
         StringBuilder requestStr = new StringBuilder();
         List<Object> requestArgs = new ArrayList<>();
-        requestStr.append("\n=========================== LogRecord Start ===========================\n");
+        requestStr.append("\n=========================== AccessLog ===========================\n");
         requestStr.append(String.format("       %-10s: {}\n", "userId"));
-        requestArgs.add(logRecordContext.getUserId());
+        requestArgs.add(systemLogContext.getUserId());
         requestStr.append(String.format("       %-10s: {}\n", "requestNo"));
-        requestArgs.add(logRecordContext.getRequestNo());
+        requestArgs.add(systemLogContext.getRequestNo());
         requestStr.append(String.format("       %-10s: {}\n", "ip"));
-        requestArgs.add(logRecordContext.getIp());
+        requestArgs.add(systemLogContext.getIp());
         requestStr.append(String.format("       %-10s: {}\n", "uri"));
-        requestArgs.add(logRecordContext.getUri());
-        requestStr.append(String.format("       %-10s: {}\n", "param"));
-        requestArgs.add(logRecordContext.getParam());
+        requestArgs.add(systemLogContext.getUri());
         requestStr.append(String.format("       %-10s: {}\n", "method"));
-        requestArgs.add(logRecordContext.getMethod());
+        requestArgs.add(systemLogContext.getMethod());
         requestStr.append(String.format("       %-10s: {}\n", "startTime"));
-        requestArgs.add(logRecordContext.getStartTime());
+        requestArgs.add(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(systemLogContext.getStartTime()));
         requestStr.append(String.format("       %-10s: {} ms\n", "respTime"));
-        requestArgs.add(logRecordContext.getRespTime());
+        requestArgs.add(systemLogContext.getRespTime());
         requestStr.append(String.format("       %-10s: {}\n", "respCode"));
-        requestArgs.add(logRecordContext.getRespCode());
+        requestArgs.add(systemLogContext.getRespCode());
         requestStr.append(String.format("       %-10s: {}\n", "respMsg"));
-        requestArgs.add(logRecordContext.getRespMsg());
-        requestStr.append(String.format("       %-10s: {}\n", "respBody"));
-        requestArgs.add(logRecordContext.getRespBody());
-        requestStr.append("=========================== LogRecord End ===========================\n");
-        log.info(requestStr.toString(), requestArgs.toArray());
+        requestArgs.add(systemLogContext.getRespMsg());
+//        requestStr.append(String.format("       %-10s: {}\n", "respBody"));
+//        requestArgs.add(systemLogContext.getRespBody());
+        requestStr.append("=================================================================\n");
 
         // todo 日志入库
+        log.info(requestStr.toString(), requestArgs.toArray());
 
         // 清理ThreadLocal
-        LogRecordContextHolder.clear();
+        SystemLogContextHolder.clear();
     }
 }

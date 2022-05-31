@@ -11,5 +11,8 @@
 
     <artifactId>zsl-common</artifactId>
 
+    <build>
+        <finalName>zsl-common</finalName>
+    </build>
 
 </project>
