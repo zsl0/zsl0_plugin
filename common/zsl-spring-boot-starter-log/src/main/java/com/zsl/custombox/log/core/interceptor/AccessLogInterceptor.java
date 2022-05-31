@@ -72,7 +72,7 @@ public class AccessLogInterceptor implements HandlerInterceptor {
         logRecordContext.setRespTime(System.currentTimeMillis() - logRecordContext.getStartTime().getTime());
 
         // todo 获取返回对象
-        System.out.println("afterCompletion:" + handler);
+        System.out.println(handler);
 
         // format log
         StringBuilder requestStr = new StringBuilder();

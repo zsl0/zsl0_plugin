@@ -23,11 +23,6 @@ public class CustomException extends RuntimeException {
         this.msg = msg;
     }
 
-    public CustomException(String message, Throwable cause) {
-        super(message, cause);
-        this.msg = message;
-    }
-
     public String getMsg() {
         return msg;
     }
