@@ -1,5 +1,7 @@
 package com.zsl.custombox.common.core.exception;
 
+import com.zsl.custombox.common.core.exception.CustomException;
+
 /**
  * 用于异常处理捕捉
  *
@@ -13,9 +15,5 @@ public abstract class AbstractAuthenticationException extends CustomException {
 
     public AbstractAuthenticationException(String msg) {
         super(msg);
-    }
-
-    public AbstractAuthenticationException(String message, Throwable cause) {
-        super(message, cause);
     }
 }

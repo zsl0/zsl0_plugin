@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @Author zsl
  * @Date 2021/12/30 11:59
  */
-//@Component
+@Component
 public class TokenServerImpl implements TokenServer {
     @Autowired
     CacheServer cacheServer;

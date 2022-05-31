@@ -14,8 +14,4 @@ public class AuthenticationFailedException extends AbstractAuthenticationExcepti
     public AuthenticationFailedException(String msg) {
         super(msg);
     }
-
-    public AuthenticationFailedException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }
