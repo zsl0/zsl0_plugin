@@ -2,8 +2,8 @@ package com.zsl.custombox.log.config;
 
 import com.zsl.custombox.log.core.interceptor.AccessLogInterceptor;
 import com.zsl.custombox.log.core.model.logrecord.LogRecordOperationSource;
-import com.zsl.custombox.log.core.service.record.DefaultLogRecordServiceImpl;
-import com.zsl.custombox.log.core.service.record.ILogRecordService;
+import com.zsl.custombox.log.core.service.dao.DefaultLogRecordServiceImpl;
+import com.zsl.custombox.log.core.service.dao.ILogRecordService;
 import com.zsl.custombox.log.core.service.function.DefaultFunctionServiceImpl;
 import com.zsl.custombox.log.core.service.function.IFunctionService;
 import com.zsl.custombox.log.core.service.function.IParseFunction;

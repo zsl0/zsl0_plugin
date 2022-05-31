@@ -1,4 +1,4 @@
-package com.zsl.custombox.log.core.service.record;
+package com.zsl.custombox.log.core.service.dao;
 
 
 import com.zsl.custombox.log.core.model.logrecord.LogRecord;
