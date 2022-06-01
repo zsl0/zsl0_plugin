@@ -1,9 +1,6 @@
 package com.zsl.custombox.common.core.advice;
 
-import com.zsl.custombox.common.core.exception.AbstractAuthenticationException;
-import com.zsl.custombox.common.core.exception.ApiException;
-import com.zsl.custombox.common.core.exception.AuthenticationFailedException;
-import com.zsl.custombox.common.core.exception.NotLoginException;
+import com.zsl.custombox.common.core.exception.*;
 import com.zsl.custombox.common.core.http.ResponseResult;
 import com.zsl.custombox.common.core.http.ResponseResultStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +18,8 @@ public class GlobalExceptionAdvice {
         // 特殊处理
         if (t instanceof ApiException) {
             return ResponseResult.custom(2000, ((ApiException) t).getMsg(), null);
+        } else if (t instanceof GlobalException) {
+            return ResponseResult.custom(((GlobalException) t).getCode(), t.getMessage(), null);
         }
 
         // 打印错误信息

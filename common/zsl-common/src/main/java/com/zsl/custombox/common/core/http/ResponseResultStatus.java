@@ -8,10 +8,11 @@ package com.zsl.custombox.common.core.http;
  * @Email 249269610@qq.com
  */
 public enum ResponseResultStatus {
-    SUCCESS(2000, "操作成功"),
-    FAILED(4000, "操作失败"),
-    NOT_LOGIN(4001, "登录失败"),
-    AUTHENTICATION_FAILED(4002, "认证失败"),
+    SUCCESS(2000, "操作成功!"),
+    FAILED(4000, "操作失败!"),
+    NOT_LOGIN(4011, "登录失败!"),
+    AUTHENTICATION_FAILED(4010, "认证失败!"),
+    FORBIDDEN(4030, "没有权限，禁止访问!"),
     ;
     private Integer code;
     private String msg;

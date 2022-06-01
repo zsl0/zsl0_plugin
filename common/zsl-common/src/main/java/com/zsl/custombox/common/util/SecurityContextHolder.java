@@ -35,6 +35,11 @@ public class SecurityContextHolder {
             public boolean isAuthenticated() {
                 return false;
             }
+
+            @Override
+            public String[] getRoles() {
+                return new String[0];
+            }
         });
         setAuth(authentication);
         return authentication;

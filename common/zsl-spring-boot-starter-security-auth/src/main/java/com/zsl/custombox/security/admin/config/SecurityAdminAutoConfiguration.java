@@ -2,8 +2,11 @@ package com.zsl.custombox.security.admin.config;
 
 import com.zsl.custombox.log.config.LogAutoConfiguration;
 import com.zsl.custombox.security.admin.core.interceptor.SecurityContextInterceptor;
-import com.zsl.custombox.security.admin.core.interceptor.TokenInterceptor;
+import com.zsl.custombox.security.admin.core.interceptor.AuthSecurityInterceptor;
+import com.zsl.custombox.security.admin.core.model.DefaultPermissionServiceImpl;
+import com.zsl.custombox.security.admin.core.model.PermissionService;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -27,14 +30,20 @@ public class SecurityAdminAutoConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public TokenInterceptor tokenInterceptor() {
-        return new TokenInterceptor();
+    public AuthSecurityInterceptor tokenInterceptor() {
+        return new AuthSecurityInterceptor();
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(this.tokenInterceptor());
         registry.addInterceptor(this.securityContextInterceptor());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(PermissionService.class)
+    public PermissionService permissionService() {
+        return new DefaultPermissionServiceImpl();
     }
 
 }

@@ -17,4 +17,6 @@ public interface Authentication {
     Long getUserId();
 
     boolean isAuthenticated();
+
+    String[] getRoles();
 }

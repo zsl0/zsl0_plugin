@@ -9,6 +9,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.zsl.custombox.common.core.exception.AuthenticationFailedException;
 import com.zsl.custombox.common.core.exception.NotAccessTokenException;
+import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 import java.util.Date;
@@ -84,12 +85,14 @@ public class TokenUtil {
     /**
      * 获取access_token存储uuid
      */
+    @Nullable
     public static String getAccessTokenUuid(String token) {
+        String uuid = null;
         String subject = getClaim(token, "subject");
-        if (subject == null || "access_token".equals(subject)) {
-            throw new NotAccessTokenException("token认证失败，不是access_token!");
+        if ("access_token".equals(subject)) {
+            uuid = getClaim(token, "uuid");
         }
-        return getClaim(token, "uuid");
+        return uuid;
     }
 
     /**
@@ -109,7 +112,7 @@ public class TokenUtil {
      */
     private static String getClaim(String token, String key) {
         DecodedJWT decodedJWT = verityToken(token);
-        return decodedJWT.getClaim(key).asString();
+        return decodedJWT == null ? null : decodedJWT.getClaim(key).asString();
     }
 
     /**
@@ -127,7 +130,7 @@ public class TokenUtil {
             return verifier.verify(token);
         } catch (JWTVerificationException exception) {
             //Invalid signature/claims
-            throw new AuthenticationFailedException("无效token");
         }
+        return null;
     }
 }

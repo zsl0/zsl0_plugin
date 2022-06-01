@@ -1,0 +1,25 @@
+package com.zsl.custombox.common.util;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * http工具
+ *
+ * @Author zsl
+ * @Date 2022/6/1 22:34
+ * @Email 249269610@qq.com
+ */
+public class HttpUtil {
+
+    /**
+     * 获取请求头中存储token
+     */
+    public static String authentication(HttpServletRequest request) {
+        String token = null;
+        String head = request.getHeader("Authentication");
+        if (head.startsWith("Bearer ")) {
+            token = head.replace("Bearer ", "").trim();
+        }
+        return token;
+    }
+}
