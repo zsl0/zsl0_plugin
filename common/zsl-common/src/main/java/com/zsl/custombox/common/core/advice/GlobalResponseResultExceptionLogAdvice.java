@@ -1,11 +1,9 @@
 package com.zsl.custombox.common.core.advice;
 
-import com.zsl.custombox.common.core.http.NotResponseBody;
 import com.zsl.custombox.common.core.http.ResponseResult;
-import com.zsl.custombox.common.model.log.SystemLogContext;
-import com.zsl.custombox.common.util.JsonUtil;
 import com.zsl.custombox.common.util.SystemLogContextHolder;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -13,7 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * 全局统一返回访问日志处理
+ * 全局统一返回异常日志处理
+ *  出现异常时，返回ResponseResult进行捕捉
  *
  * @Author zsl
  * @Date 2022/5/15 19:10
@@ -21,7 +20,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 //@RestControllerAdvice
 @ControllerAdvice
-public class GlobalResponseResultAccessLogAdvice implements ResponseBodyAdvice<Object> {
+@Order(Integer.MAX_VALUE)
+public class GlobalResponseResultExceptionLogAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
         // 返回 true则执行 beforeBodyWrite方法,

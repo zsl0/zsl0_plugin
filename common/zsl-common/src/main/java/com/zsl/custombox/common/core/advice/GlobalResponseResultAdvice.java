@@ -5,6 +5,7 @@ import com.zsl.custombox.common.core.http.ResponseResult;
 import com.zsl.custombox.common.util.JsonUtil;
 import com.zsl.custombox.common.util.SystemLogContextHolder;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 //@RestControllerAdvice
 @ControllerAdvice
+@Order(Integer.MAX_VALUE - 10)
 public class GlobalResponseResultAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
@@ -40,6 +42,7 @@ public class GlobalResponseResultAdvice implements ResponseBodyAdvice<Object> {
             return JsonUtil.obj2Str(body);
         }
         ResponseResult<Object> result = ResponseResult.success(body);
+        SystemLogContextHolder.get().setRespCode(result.getCode()).setRespMsg(result.getMsg());
         return result;
     }
 }
