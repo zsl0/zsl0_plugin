@@ -13,6 +13,10 @@ public enum ResponseResultStatus {
     NOT_LOGIN(4011, "登录失败!"),
     AUTHENTICATION_FAILED(4010, "认证失败!"),
     FORBIDDEN(4030, "没有权限，禁止访问!"),
+
+    // 适应com.cqkj.rs.pojo.ResponserCode
+    SUCCESS_CQKJ(301, "成功"),
+
     ;
     private Integer code;
     private String msg;

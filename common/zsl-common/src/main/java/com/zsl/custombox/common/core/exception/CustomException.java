@@ -13,26 +13,26 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class CustomException extends RuntimeException {
-    private String msg;
+    private String message;
 
     public CustomException() {
     }
 
-    public CustomException(String msg) {
-        super(msg);
-        this.msg = msg;
+    public CustomException(String message) {
+        super(message);
+        this.message = message;
     }
 
     public CustomException(String message, Throwable cause) {
         super(message, cause);
-        this.msg = message;
+        this.message = message;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

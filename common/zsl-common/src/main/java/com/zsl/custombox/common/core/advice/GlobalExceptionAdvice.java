@@ -17,7 +17,7 @@ public class GlobalExceptionAdvice {
     public ResponseResult<String> global(Throwable t) {
         // 特殊处理
         if (t instanceof ApiException) {
-            return ResponseResult.custom(2000, ((ApiException) t).getMsg(), null);
+            return ResponseResult.custom(ResponseResultStatus.SUCCESS.getCode(), t.getMessage(), null);
         } else if (t instanceof GlobalException) {
             return ResponseResult.custom(((GlobalException) t).getCode(), t.getMessage(), null);
         }
