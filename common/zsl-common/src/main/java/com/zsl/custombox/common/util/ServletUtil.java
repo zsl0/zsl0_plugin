@@ -14,7 +14,7 @@ import java.util.Objects;
  * @Date 2022/5/16 21:28
  * @Email 249269610@qq.com
  */
-public class ServletContextHolder {
+public class ServletUtil {
 
     /**
      * 获取ServletRequest

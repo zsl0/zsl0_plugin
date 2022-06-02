@@ -1,4 +1,4 @@
-package com.zsl.custombox.security.admin.core.annotation;
+package com.zsl.custombox.security.auth.core.annotation;
 
 /**
  * 任何人都可以访问（特定接口放行）

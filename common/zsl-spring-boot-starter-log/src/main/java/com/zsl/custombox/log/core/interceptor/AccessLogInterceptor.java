@@ -1,7 +1,7 @@
 package com.zsl.custombox.log.core.interceptor;
 
 import com.zsl.custombox.common.util.SecurityContextHolder;
-import com.zsl.custombox.common.util.ServletContextHolder;
+import com.zsl.custombox.common.util.ServletUtil;
 import com.zsl.custombox.common.model.log.SystemLogContext;
 import com.zsl.custombox.common.util.SystemLogContextHolder;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ public class AccessLogInterceptor implements HandlerInterceptor {
         SystemLogContext systemLogContext = new SystemLogContext()
                 .setUserId(SecurityContextHolder.getAuth().getUserId())
                 .setRequestNo(0L)// 可以使用雪花算法获取64位唯一id
-                .setIp(ServletContextHolder.getIp())
+                .setIp(ServletUtil.getIp())
                 .setUri(request.getRequestURI())
                 .setMethod(request.getMethod())
                 .setStartTime(new Date(System.currentTimeMillis()));

@@ -106,6 +106,14 @@ public class TokenUtil {
         return getClaim(token, "uuid");
     }
 
+    /**
+     * 获取过期时间
+     */
+    public static Long getExpire(String token) {
+        DecodedJWT decodedJWT = verityToken(token);
+        return decodedJWT == null ? null : decodedJWT.getExpiresAt().getTime();
+    }
+
 
     /**
      * 获取Payload信息

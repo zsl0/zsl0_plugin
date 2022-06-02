@@ -1,8 +1,5 @@
-package com.zsl.custombox.security.admin.core.interceptor;
+package com.zsl.custombox.security.auth.core.interceptor;
 
-import com.zsl.custombox.common.core.exception.AuthenticationFailedException;
-import com.zsl.custombox.common.util.SecurityContextHolder;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 

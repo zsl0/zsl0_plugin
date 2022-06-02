@@ -1,2 +1,2 @@
-org.springframework.boot.autoconfigure.AutoConfigurationImportListener=\
-com.zsl.custombox.security.admin.config.SecurityAdminAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.zsl.custombox.security.auth.config.SecurityAdminAutoConfiguration

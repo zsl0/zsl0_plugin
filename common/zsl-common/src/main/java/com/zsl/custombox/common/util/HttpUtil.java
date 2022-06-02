@@ -22,4 +22,11 @@ public class HttpUtil {
         }
         return token;
     }
+
+    /**
+     * 设置响应头信息
+     */
+    public static void setResponseHeader(String key, String value) {
+        ServletUtil.getResponse().setHeader(key, value);
+    }
 }

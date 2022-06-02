@@ -1,6 +1,4 @@
-package com.zsl.custombox.security.admin.core.model;
-
-import java.util.List;
+package com.zsl.custombox.security.auth.core.model;
 
 /**
  * 默认不需要权限

@@ -1,4 +1,4 @@
-package com.zsl.custombox.security.admin.core.annotation;
+package com.zsl.custombox.security.auth.core.annotation;
 
 import java.lang.annotation.*;
 

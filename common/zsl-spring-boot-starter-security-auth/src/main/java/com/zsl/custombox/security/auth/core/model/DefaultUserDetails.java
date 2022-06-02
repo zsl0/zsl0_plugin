@@ -1,4 +1,4 @@
-package com.zsl.custombox.security.admin.core.model;
+package com.zsl.custombox.security.auth.core.model;
 
 import com.zsl.custombox.common.model.base.BaseBean;
 import com.zsl.custombox.common.model.authentication.Authentication;

@@ -1,16 +1,17 @@
-package com.zsl.custombox.security.admin.core.interceptor;
+package com.zsl.custombox.security.auth.core.interceptor;
 
 import com.zsl.custombox.common.core.exception.GlobalException;
 import com.zsl.custombox.common.model.authentication.Authentication;
 import com.zsl.custombox.common.core.service.cache.TokenServer;
 import com.zsl.custombox.common.util.HttpUtil;
-import com.zsl.custombox.security.admin.core.annotation.Anybody;
-import com.zsl.custombox.security.admin.core.annotation.Permissions;
-import com.zsl.custombox.security.admin.core.model.DefaultUserDetails;
+import com.zsl.custombox.security.auth.core.annotation.Anybody;
+import com.zsl.custombox.security.auth.core.annotation.Permissions;
+import com.zsl.custombox.security.auth.core.model.DefaultUserDetails;
 import com.zsl.custombox.common.util.JsonUtil;
 import com.zsl.custombox.common.util.SecurityContextHolder;
 import com.zsl.custombox.common.util.TokenUtil;
-import com.zsl.custombox.security.admin.core.model.PermissionService;
+import com.zsl.custombox.security.auth.core.model.PermissionService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -31,6 +32,7 @@ import static com.zsl.custombox.common.core.http.ResponseResultStatus.FORBIDDEN;
  * @Date 2022/5/22 20:01
  * @Email 249269610@qq.com
  */
+@Setter
 public class AuthSecurityInterceptor implements HandlerInterceptor {
 
     @Autowired

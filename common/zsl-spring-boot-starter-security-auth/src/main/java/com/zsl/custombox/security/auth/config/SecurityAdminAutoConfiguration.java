@@ -1,10 +1,12 @@
-package com.zsl.custombox.security.admin.config;
+package com.zsl.custombox.security.auth.config;
 
+import com.zsl.custombox.common.core.service.cache.TokenServer;
 import com.zsl.custombox.log.config.LogAutoConfiguration;
-import com.zsl.custombox.security.admin.core.interceptor.SecurityContextInterceptor;
-import com.zsl.custombox.security.admin.core.interceptor.AuthSecurityInterceptor;
-import com.zsl.custombox.security.admin.core.model.DefaultPermissionServiceImpl;
-import com.zsl.custombox.security.admin.core.model.PermissionService;
+import com.zsl.custombox.security.auth.core.interceptor.SecurityContextInterceptor;
+import com.zsl.custombox.security.auth.core.interceptor.AuthSecurityInterceptor;
+import com.zsl.custombox.security.auth.core.model.DefaultPermissionServiceImpl;
+import com.zsl.custombox.security.auth.core.model.DefaultTokenServiceImpl;
+import com.zsl.custombox.security.auth.core.model.PermissionService;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -30,14 +32,23 @@ public class SecurityAdminAutoConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public AuthSecurityInterceptor tokenInterceptor() {
-        return new AuthSecurityInterceptor();
+    public AuthSecurityInterceptor authSecurityInterceptor() {
+        AuthSecurityInterceptor authSecurityInterceptor = new AuthSecurityInterceptor();
+        authSecurityInterceptor.setTokenServer(this.tokenServer());
+        authSecurityInterceptor.setPermissionService(this.permissionService());
+        return authSecurityInterceptor;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(this.tokenInterceptor());
+        registry.addInterceptor(this.authSecurityInterceptor());
         registry.addInterceptor(this.securityContextInterceptor());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(TokenServer.class)
+    public TokenServer tokenServer() {
+        return new DefaultTokenServiceImpl();
     }
 
     @Bean
