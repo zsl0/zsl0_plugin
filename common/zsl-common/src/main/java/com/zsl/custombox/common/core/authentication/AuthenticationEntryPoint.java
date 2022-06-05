@@ -19,6 +19,6 @@ public class AuthenticationEntryPoint {
 
     public void failed(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.setContentType("application/json;charset=utf-8");
-        httpServletResponse.getWriter().write(JsonUtil.obj2Str(ResponseResult.custom(ResponseResultStatus.AUTHENTICATION_FAILED, null)));
+        httpServletResponse.getWriter().write(JsonUtil.obj2Str(ResponseResult.custom(ResponseResultStatus.UNAUTHORIZED, null)));
     }
 }

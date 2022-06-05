@@ -1,6 +1,7 @@
 package com.zsl.custombox.common.util;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * http工具
@@ -17,7 +18,7 @@ public class HttpUtil {
     public static String authentication(HttpServletRequest request) {
         String token = null;
         String head = request.getHeader("Authentication");
-        if (head.startsWith("Bearer ")) {
+        if (Objects.nonNull(head) && head.startsWith("Bearer ")) {
             token = head.replace("Bearer ", "").trim();
         }
         return token;

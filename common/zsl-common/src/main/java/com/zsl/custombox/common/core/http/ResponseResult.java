@@ -54,7 +54,7 @@ public class ResponseResult<T> {
      * 操作失败，自定义返回数据
      */
     public static <T> ResponseResult<T> failed(T data) {
-        return newInstance(ResponseResultStatus.FAILED, data);
+        return newInstance(ResponseResultStatus.BAD_REQUEST, data);
     }
 
     public static <T> ResponseResult<T> custom(Integer code, String msg, T data) {

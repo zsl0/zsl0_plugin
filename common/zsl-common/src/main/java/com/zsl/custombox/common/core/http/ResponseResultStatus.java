@@ -1,18 +1,18 @@
 package com.zsl.custombox.common.core.http;
 
 /**
- * 自定义返回状态
+ * 自定义返回状态码
  *
  * @Author zsl
  * @Date 2022/5/15 18:58
  * @Email 249269610@qq.com
  */
 public enum ResponseResultStatus {
-    SUCCESS(2000, "操作成功!"),
-    FAILED(4000, "操作失败!"),
-    NOT_LOGIN(4011, "登录失败!"),
-    AUTHENTICATION_FAILED(4010, "认证失败!"),
-    FORBIDDEN(4030, "没有权限，禁止访问!"),
+    SUCCESS(200, "操作成功!"),
+    BAD_REQUEST(400, "请求失败!"),
+    NOT_LOGIN(401, "登录失败!"),
+    UNAUTHORIZED(401, "认证失败!"),
+    FORBIDDEN(403, "没有权限，禁止访问!"),
 
     // 适应com.cqkj.rs.pojo.ResponserCode
     SUCCESS_CQKJ(301, "成功"),

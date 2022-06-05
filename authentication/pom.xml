@@ -19,6 +19,34 @@
     </properties>
 
     <dependencies>
+<!--        common组件-->
+        <dependency>
+            <groupId>com.zsl.custombox</groupId>
+            <artifactId>zsl-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+<!--        log(AccessLog、OperationLog)组件-->
+        <dependency>
+            <groupId>com.zsl.custombox</groupId>
+            <artifactId>zsl-spring-boot-starter-log</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+<!--        认证组件-->
+        <dependency>
+            <groupId>com.zsl.custombox</groupId>
+            <artifactId>zsl-spring-boot-starter-security-auth</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+<!--        API文档组件-->
+        <dependency>
+            <groupId>com.zsl.custombox</groupId>
+            <artifactId>zsl-spring-boot-starter-swagger</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
 <!--        JWT-->
         <dependency>
             <groupId>com.auth0</groupId>

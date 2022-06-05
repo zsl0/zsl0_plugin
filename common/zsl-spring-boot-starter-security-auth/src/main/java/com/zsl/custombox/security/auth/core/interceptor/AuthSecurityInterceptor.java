@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Objects;
 
-import static com.zsl.custombox.common.core.http.ResponseResultStatus.AUTHENTICATION_FAILED;
+import static com.zsl.custombox.common.core.http.ResponseResultStatus.UNAUTHORIZED;
 import static com.zsl.custombox.common.core.http.ResponseResultStatus.FORBIDDEN;
 
 /**
@@ -94,7 +94,7 @@ public class AuthSecurityInterceptor implements HandlerInterceptor {
     private void checkAuthentication(HandlerMethod handler, String userId) {
         boolean hasAnybody = handler.hasMethodAnnotation(Anybody.class);
         if (!hasAnybody && userId == null) {
-            throw new GlobalException(AUTHENTICATION_FAILED);
+            throw new GlobalException(UNAUTHORIZED);
         }
     }
 
