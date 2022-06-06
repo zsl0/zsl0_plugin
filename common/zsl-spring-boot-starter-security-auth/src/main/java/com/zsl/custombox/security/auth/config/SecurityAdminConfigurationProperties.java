@@ -15,7 +15,10 @@ public class SecurityAdminConfigurationProperties {
     private String[] ignorePath;
 
     private static final String[] DEFAULT_IGNORE_PATH = {
-            "/doc.html", "/swagger-resources",  "/swagger-resources/**", "/webjars/**",
+            // swagger相关
+            "/doc.html", "/swagger-resources",  "/swagger-resources/**", "/webjars/**", "/v2/api-docs",
+            // 文件相关
+            "/**/*.*",
     };
 
     public String[] getIgnorePath() {
