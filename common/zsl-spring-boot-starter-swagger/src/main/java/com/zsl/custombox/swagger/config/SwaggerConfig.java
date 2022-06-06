@@ -9,12 +9,15 @@ import org.springframework.util.ObjectUtils;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,7 +30,9 @@ import java.util.List;
  * @Email 249269610@qq.com
  */
 @EnableConfigurationProperties(SwaggerConfigurationProperties.class)
-@Import(Swagger2DocumentationConfiguration.class)
+//@EnableSwagger2
+@EnableOpenApi
+//@Import(Swagger2DocumentationConfiguration.class)
 public class SwaggerConfig {
     private final SwaggerConfigurationProperties swaggerProperties;
 
@@ -46,11 +51,11 @@ public class SwaggerConfig {
                 .groupName(ObjectUtil.defaultIfNull(swaggerProperties.getApplicationVersion(), "-"))
 
                 // 定义是否开启swagger,false为关闭，可以通过yaml配置变量控制
-                .enable(swaggerProperties.getEnable() != null)
+                .enable(swaggerProperties.getEnable())
 
                 // 选择那些接口作为swagger的doc发布
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.zsl.custombox.*.controller"))    // api路径
+                .apis(RequestHandlerSelectors.basePackage("com.zsl.custombox.authentication.controller"))    // api路径
                 .paths(PathSelectors.any()) // 路径匹配
                 .build()
 
@@ -76,17 +81,21 @@ public class SwaggerConfig {
      * 设置授权信息
      */
     private List<SecurityScheme> apiKeys() {
-        return List.of(new ApiKey("Bearer Token", "Authorization", "header"));
+        List<SecurityScheme> list = new ArrayList<>();
+        list.add(new ApiKey("Bearer Token", "Authorization", "header"));
+        return list;
     }
 
     /**
      * 授权信息全局应用
      */
     private List<SecurityContext> securityContexts() {
-        return List.of(SecurityContext.builder()
+        List<SecurityContext> list = new ArrayList<>();
+        list.add(SecurityContext.builder()
                 .securityReferences(defaultAuth())
                 .forPaths(PathSelectors.regex("/.*"))
                 .build());
+        return list;
     }
 
     /**

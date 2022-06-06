@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -23,7 +24,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @AutoConfigureAfter(LogAutoConfiguration.class)
+@Import(SecurityAdminConfigurationProperties.class)
 public class SecurityAdminAutoConfiguration implements WebMvcConfigurer {
+
+    private SecurityAdminConfigurationProperties properties;
+
+    public SecurityAdminAutoConfiguration(SecurityAdminConfigurationProperties properties) {
+        this.properties = properties;
+    }
 
     // ==========================   拦截器   ==========================
     @Bean
@@ -41,8 +49,8 @@ public class SecurityAdminAutoConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(this.authSecurityInterceptor());
-        registry.addInterceptor(this.securityContextInterceptor());
+        registry.addInterceptor(this.authSecurityInterceptor()).excludePathPatterns(properties.getIgnorePath());
+        registry.addInterceptor(this.securityContextInterceptor()).excludePathPatterns(properties.getIgnorePath());
     }
 
     @Bean

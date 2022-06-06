@@ -1,3 +1,6 @@
+server:
+  port: 18881
+
 spring:
   profiles:
     active: zsl_test

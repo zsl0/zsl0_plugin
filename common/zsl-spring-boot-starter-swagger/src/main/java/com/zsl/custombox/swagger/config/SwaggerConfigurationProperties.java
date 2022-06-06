@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @ConfigurationProperties(prefix = "swagger")
 public class SwaggerConfigurationProperties {
-    private Boolean enable; // 是否开启swagger
+    private Boolean enable = true; // 是否开启swagger
     private String applicationName; // 应用程序名称
     private String applicationVersion;  // 应用程序版本
     private String applicationDescription;  // 应用程序描述

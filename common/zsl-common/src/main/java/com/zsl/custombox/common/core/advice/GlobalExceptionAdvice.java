@@ -9,7 +9,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author zsl
@@ -19,6 +21,10 @@ import java.util.List;
 @RestControllerAdvice
 //@ControllerAdvice
 public class GlobalExceptionAdvice {
+
+    /**
+     * 全局异常处理（兜底捕捉）
+     */
     @ExceptionHandler(Throwable.class)
     public ResponseResult<String> global(Throwable t) {
         // 特殊处理
@@ -33,12 +39,6 @@ public class GlobalExceptionAdvice {
         return ResponseResult.success(t.getMessage());
     }
 
-    @ExceptionHandler(GlobalException.class)
-    public ResponseResult<String> globalException(GlobalException t) {
-        // 打印错误信息
-        t.printStackTrace();
-        return ResponseResult.custom(((GlobalException) t).getCode(), t.getMessage(), null);
-    }
 
     /**
      * 捕捉认证异常
@@ -57,11 +57,20 @@ public class GlobalExceptionAdvice {
         return ResponseResult.custom(status, null);
     }
 
+    /**
+     * 捕捉 Validator参数异常
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseResult methodArgumentNotValid(MethodArgumentNotValidException e) {
+    public ResponseResult<Map<String, String>> methodArgumentNotValid(MethodArgumentNotValidException e) {
         BindingResult bindingResult = e.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 
-        return ResponseResult.custom(ResponseResultStatus.BAD_REQUEST, fieldErrors);
+        // 收集message
+        Map<String, String> map = new HashMap<>();
+        for (FieldError fieldError : fieldErrors) {
+            map.put(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+
+        return ResponseResult.custom(ResponseResultStatus.BAD_REQUEST, map);
     }
 }

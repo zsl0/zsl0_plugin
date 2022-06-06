@@ -1,0 +1,5 @@
+swagger:
+  enable: true
+  application-name: 认证模块
+  application-version: v0.0.1
+  application-description: 功能：登录

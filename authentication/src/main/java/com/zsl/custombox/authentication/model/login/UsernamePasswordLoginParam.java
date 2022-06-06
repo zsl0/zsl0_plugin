@@ -2,6 +2,7 @@ package com.zsl.custombox.authentication.model.login;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -13,14 +14,15 @@ import javax.validation.constraints.NotBlank;
  */
 @ApiModel("用户名密码登录")
 @Valid
+@Data
 public class UsernamePasswordLoginParam {
     @ApiModelProperty("用户名称")
-    @NotBlank
+    @NotBlank(message = "用户名不能为空！")
     private String username;
     @ApiModelProperty("用户密码")
-    @NotBlank
+    @NotBlank(message = "密码不能为空！")
     private String password;
     @ApiModelProperty("验证码")
-    @NotBlank
+    @NotBlank(message = "验证码不能为空！")
     private String code;
 }
