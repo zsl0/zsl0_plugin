@@ -10,17 +10,18 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.util.Objects;
+
 /**
  * 全局统一返回异常日志处理
- *  出现异常时，返回ResponseResult进行捕捉
+ *  出现异常时，返回ResponseResult进行捕捉,设置AccessLogContext响应码
  *
  * @Author zsl
  * @Date 2022/5/15 19:10
  * @Email 249269610@qq.com
  */
-//@RestControllerAdvice
 @ControllerAdvice
-@Order(Integer.MAX_VALUE)
+@Order(Integer.MAX_VALUE - 20)
 public class GlobalResponseResultExceptionLogAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
@@ -37,7 +38,9 @@ public class GlobalResponseResultExceptionLogAdvice implements ResponseBodyAdvic
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (body instanceof ResponseResult) {
             ResponseResult  result = ((ResponseResult) body);
-            SystemLogContextHolder.get().setRespCode(result.getCode()).setRespMsg(result.getMsg());
+            if (Objects.nonNull(SystemLogContextHolder.get())) {
+                SystemLogContextHolder.get().setRespCode(result.getCode()).setRespMsg(result.getMsg());
+            }
         }
         return body;
     }

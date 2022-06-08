@@ -1,4 +1,4 @@
-package com.zsl.custombox.common.core.advice;
+package com.zsl.custombox.authentication.core.advice;
 
 import com.zsl.custombox.common.core.http.NotResponseBody;
 import com.zsl.custombox.common.core.http.ResponseResult;
@@ -22,7 +22,7 @@ import java.util.Objects;
  * @Date 2022/5/15 19:10
  * @Email 249269610@qq.com
  */
-//@ControllerAdvice(basePackages = "com.zsl.custombox.authentication.controller")
+@ControllerAdvice(basePackages = "com.zsl.custombox.authentication.controller")
 @Order(Integer.MAX_VALUE - 20)
 public class GlobalResponseResultAdvice implements ResponseBodyAdvice<Object> {
     @Override

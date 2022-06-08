@@ -4,3 +4,6 @@ server:
 spring:
   profiles:
     active: zsl_test
+
+logging:
+  level: info

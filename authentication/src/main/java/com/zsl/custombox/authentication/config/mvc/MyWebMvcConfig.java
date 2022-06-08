@@ -1,5 +1,6 @@
 package com.zsl.custombox.authentication.config.mvc;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Date 2022/6/6 17:00
  * @Email 249269610@qq.com
  */
+@Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {
 
     @Override
@@ -26,10 +28,6 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
-
-        //springboot 集成swagger2.2后静态资源404，添加如下两行配置
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/static/");
 
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");

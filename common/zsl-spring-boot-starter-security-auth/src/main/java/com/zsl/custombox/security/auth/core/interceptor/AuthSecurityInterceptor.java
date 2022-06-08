@@ -1,10 +1,9 @@
 package com.zsl.custombox.security.auth.core.interceptor;
 
 import com.zsl.custombox.common.core.exception.GlobalException;
-import com.zsl.custombox.common.model.authentication.Authentication;
 import com.zsl.custombox.common.core.service.cache.TokenServer;
 import com.zsl.custombox.common.util.HttpUtil;
-import com.zsl.custombox.security.auth.core.annotation.Anybody;
+import com.zsl.custombox.security.auth.core.annotation.RequireAuthentication;
 import com.zsl.custombox.security.auth.core.annotation.Permissions;
 import com.zsl.custombox.security.auth.core.model.DefaultUserDetails;
 import com.zsl.custombox.common.util.JsonUtil;
@@ -43,7 +42,6 @@ public class AuthSecurityInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // todo 白名单(静态资源、swagger)
 
         // 获取userId
         String userId = this.getUserId(request);
@@ -70,7 +68,7 @@ public class AuthSecurityInterceptor implements HandlerInterceptor {
         }
         String permission = methodAnnotation.value();
 
-        // 检查权限
+        // 检查权限 需要自定义实现permissionService
         if (!permissionService.hasPermission(permission)) throw new GlobalException(FORBIDDEN);
     }
 
@@ -92,8 +90,8 @@ public class AuthSecurityInterceptor implements HandlerInterceptor {
      * 检查认证
      */
     private void checkAuthentication(HandlerMethod handler, String userId) {
-        boolean hasAnybody = handler.hasMethodAnnotation(Anybody.class);
-        if (!hasAnybody && userId == null) {
+        boolean hasAuthentication = handler.hasMethodAnnotation(RequireAuthentication.class);
+        if (hasAuthentication && userId == null) {
             throw new GlobalException(UNAUTHORIZED);
         }
     }
@@ -108,7 +106,7 @@ public class AuthSecurityInterceptor implements HandlerInterceptor {
             // 解析uuid
             if (Objects.nonNull(uuid)) {
                 // todo redis缓存内容是否加密
-                Authentication authentication = JsonUtil.getJsonObject(tokenServer.get(uuid), DefaultUserDetails.class);
+                com.zsl.custombox.common.model.authentication.Authentication authentication = JsonUtil.getJsonObject(tokenServer.get(uuid), DefaultUserDetails.class);
                 userId = (authentication == null || authentication.getUserId() == null) ? null : authentication.getUserId().toString();
 
                 // 将凭证放入全局结构体中

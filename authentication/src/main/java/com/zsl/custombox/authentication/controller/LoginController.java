@@ -1,7 +1,7 @@
 package com.zsl.custombox.authentication.controller;
 
 import com.zsl.custombox.authentication.model.login.UsernamePasswordLoginParam;
-import com.zsl.custombox.security.auth.core.annotation.Anybody;
+import com.zsl.custombox.security.auth.core.annotation.Permissions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -25,10 +25,11 @@ import javax.validation.Valid;
 public class LoginController {
 
     @PostMapping
-    @Anybody
+//    @Authentication
+    @Permissions()
     @ApiOperation("用户名密码登录")
-    public String usernamePasswordLogin(@ApiParam("账号密码登录") @RequestBody @Valid UsernamePasswordLoginParam usernamePasswordLoginParam) {
+    public UsernamePasswordLoginParam usernamePasswordLogin(@ApiParam("账号密码登录") @RequestBody @Valid UsernamePasswordLoginParam usernamePasswordLoginParam) {
         System.out.println(usernamePasswordLoginParam);
-        return "success!";
+        return usernamePasswordLoginParam;
     }
 }

@@ -3,19 +3,14 @@ package com.zsl.custombox.swagger.config;
 import cn.hutool.core.util.ObjectUtil;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.util.ObjectUtils;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,9 +25,7 @@ import java.util.List;
  * @Email 249269610@qq.com
  */
 @EnableConfigurationProperties(SwaggerConfigurationProperties.class)
-//@EnableSwagger2
-@EnableOpenApi
-//@Import(Swagger2DocumentationConfiguration.class)
+@EnableSwagger2
 public class SwaggerConfig {
     private final SwaggerConfigurationProperties swaggerProperties;
 
