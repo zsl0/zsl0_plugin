@@ -31,10 +31,17 @@
         <org.mapstruct.vsersion>1.4.2.Final</org.mapstruct.vsersion>
         <springfox.version>3.0.0</springfox.version>
         <cn.hutool.version>5.7.16</cn.hutool.version>
+        <mybatis.version>2.2.0</mybatis.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+<!--            mybatis-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
 <!--            mysql driver-->
             <dependency>
                 <groupId>mysql</groupId>

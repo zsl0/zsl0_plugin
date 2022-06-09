@@ -11,7 +11,6 @@ import com.zsl.custombox.common.util.SecurityContextHolder;
 import com.zsl.custombox.common.util.TokenUtil;
 import com.zsl.custombox.security.auth.core.model.PermissionService;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,10 +33,8 @@ import static com.zsl.custombox.common.core.http.ResponseResultStatus.FORBIDDEN;
 @Setter
 public class AuthSecurityInterceptor implements HandlerInterceptor {
 
-    @Autowired
     TokenServer tokenServer;
 
-    @Autowired
     PermissionService permissionService;
 
     @Override

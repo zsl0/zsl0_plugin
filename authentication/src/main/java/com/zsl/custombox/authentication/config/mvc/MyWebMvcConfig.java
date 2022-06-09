@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Date 2022/6/6 17:00
  * @Email 249269610@qq.com
  */
-@Configuration
+//@Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {
 
     @Override

@@ -1,4 +1,4 @@
-package com.zsl.custombox.authentication.model.login;
+package com.zsl.custombox.authentication.model.param.login;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,13 +16,13 @@ import javax.validation.constraints.NotBlank;
 @Valid
 @Data
 public class UsernamePasswordLoginParam {
-    @ApiModelProperty("用户名称")
+    @ApiModelProperty(value = "用户名称", example = "admin")
     @NotBlank(message = "用户名不能为空！")
     private String username;
-    @ApiModelProperty("用户密码")
+    @ApiModelProperty(value = "用户密码", example = "cqkj123456")
     @NotBlank(message = "密码不能为空！")
     private String password;
-    @ApiModelProperty("验证码")
-    @NotBlank(message = "验证码不能为空！")
+    @ApiModelProperty(value = "验证码", example = "abc")
+//    @NotBlank(message = "验证码不能为空！")
     private String code;
 }

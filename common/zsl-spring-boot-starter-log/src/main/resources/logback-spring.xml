@@ -210,7 +210,7 @@
         <logger name="com.zsl" level="debug"/> <!-- 开发环境, 指定某包日志为debug级 -->
     </springProfile>
 
-    <springProfile name="zsl_test">
+    <springProfile name="local">
         <root level="info">
             <appender-ref ref="CONSOLE" />
             <appender-ref ref="DEBUG_FILE" />

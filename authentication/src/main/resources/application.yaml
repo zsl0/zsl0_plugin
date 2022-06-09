@@ -3,7 +3,11 @@ server:
 
 spring:
   profiles:
-    active: zsl_test
+    active: local
+    include: localdb
 
-logging:
-  level: info
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true # 大小驼峰转换
