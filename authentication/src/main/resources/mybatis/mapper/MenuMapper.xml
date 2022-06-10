@@ -40,6 +40,27 @@
         where m.id = t.menu_id
     </select>
 
+    <select id="queryByRoleIdes" resultType="com.zsl.custombox.authentication.model.pojo.login.Menu">
+        <foreach collection="list" item="roleId" separator="union all">
+            select
+            <include refid="menuColumns"><property name="arg" value="t"/></include>
+            from
+            menu m,
+            (select role_id, menu_id from role_menu where role_id = #{roleId}) t
+            where m.id = t.menu_id
+        </foreach>
+    </select>
+
+
+    <resultMap id="queryRoleByUserId" type="arraylist" autoMapping="true">
+
+    </resultMap>
+
+    <select id="queryByUserId" resultType="com.zsl.custombox.authentication.model.pojo.login.Menu">
+
+    </select>
+
+
     <insert id="insert">
         insert into
         menu(menu_name, parent_id)

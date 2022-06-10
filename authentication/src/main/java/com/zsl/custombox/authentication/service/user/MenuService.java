@@ -1,6 +1,7 @@
-package com.zsl.custombox.authentication.service.menu;
+package com.zsl.custombox.authentication.service.user;
 
 import com.zsl.custombox.authentication.model.pojo.login.Menu;
+import com.zsl.custombox.authentication.model.pojo.login.MenuNode;
 
 import java.util.List;
 
@@ -14,35 +15,38 @@ public interface MenuService {
     /**
      * 根据用户id获取菜单
      */
-    void loadUserMenu(Long userId);
+    List<MenuNode> loadUserMenu(Long userId);
 
     /**
      * 获取所有菜单
      */
-    int loadAll();
+    List<Menu> loadAll();
 
     /**
      * 根据角色获取菜单
      */
-    int loadRoleMenu(Long roleId);
+    List<Menu> loadRoleMenu(Long roleId);
 
     /**
      * 获取单个菜单信息
      */
-    int loadMenu(Long menuId);
+    Menu loadMenu(Long menuId);
 
     /**
      * 添加菜单
+     * @return 1,执行成功
      */
     int add(Menu menu);
 
     /**
      * 删除菜单
+     * @return 1,执行成功
      */
     int remove(Long menuId);
 
     /**
      * 更新菜单信息
+     * @return 1,执行成功
      */
     int update(Menu menu);
 }

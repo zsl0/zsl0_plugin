@@ -28,6 +28,16 @@ public interface MenuMapper {
     List<Menu> queryByRoleId(Long roleId);
 
     /**
+     * 通过List<Long>查询菜单 (需要去重)
+     */
+    List<Menu> queryByRoleIdes(List<Long> roleIdes);
+
+    /**
+     * 通过List<Long>查询菜单 (需要去重:未实现)
+     */
+    List<Menu> queryByUserId(Long userId);
+
+    /**
      * 新增
      */
     void insert(Menu menu);

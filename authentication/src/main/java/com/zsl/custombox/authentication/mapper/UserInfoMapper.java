@@ -2,6 +2,8 @@ package com.zsl.custombox.authentication.mapper;
 
 import com.zsl.custombox.authentication.model.pojo.login.UserInfo;
 
+import java.util.List;
+
 /**
  * 用户Mapper
  *
@@ -10,6 +12,11 @@ import com.zsl.custombox.authentication.model.pojo.login.UserInfo;
  * @Email 249269610@qq.com
  */
 public interface UserInfoMapper {
+    /**
+     * 查询所有用户
+     */
+    List<UserInfo> queryAll();
+
     /**
      * 通过id查询
      */

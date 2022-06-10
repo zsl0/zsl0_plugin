@@ -19,6 +19,13 @@
         `update_time`
     </sql>
 
+    <select id="queryAll" resultType="com.zsl.custombox.authentication.model.pojo.login.UserInfo">
+        select
+        <include refid="userInfoColumns"></include>
+        from
+        user_info
+    </select>
+
 
     <select id="queryById" resultType="com.zsl.custombox.authentication.model.pojo.login.UserInfo">
         select
