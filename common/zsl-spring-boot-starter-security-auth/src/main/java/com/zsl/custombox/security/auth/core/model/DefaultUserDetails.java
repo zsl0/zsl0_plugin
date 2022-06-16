@@ -23,6 +23,8 @@ public class DefaultUserDetails extends BaseBean implements Authentication {
     private Long userId;
     // 是否官方自定义认证 对象
     private Boolean authenticated = false;
+    // 是否管理员
+    private Boolean admin = false;
     // 角色
     private String[] roles;
 
@@ -58,5 +60,9 @@ public class DefaultUserDetails extends BaseBean implements Authentication {
     @Override
     public String[] getRoles() {
         return roles;
+    }
+
+    public boolean isAdmin() {
+        return admin;
     }
 }

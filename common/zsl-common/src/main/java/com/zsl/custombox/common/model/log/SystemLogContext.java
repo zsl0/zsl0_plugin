@@ -21,8 +21,8 @@ public class SystemLogContext {
     private Long userId;
     // 请求号码，保证请求调用时请求号不变
     private Long requestNo;
-    // ip地址
-    private String ip;
+    // host
+    private String host;
     // 统一资源接口uri
     private String uri;
     // 参数

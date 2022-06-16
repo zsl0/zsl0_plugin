@@ -59,6 +59,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         // 查询角色
         List<Role> roles = roleMapper.queryByUserId(userInfo.getId());
-        return new DefaultUserDetails(userInfo, null, userInfo.getId(), true, roles.stream().map(Role::getRoleName).toArray(String[]::new));
+        return new DefaultUserDetails(userInfo, null, userInfo.getId(), true, userInfo.getAdmin() == 1L, roles.stream().map(Role::getRoleName).toArray(String[]::new));
     }
 }

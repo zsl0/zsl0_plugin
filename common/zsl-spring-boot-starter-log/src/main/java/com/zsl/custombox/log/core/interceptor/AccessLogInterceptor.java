@@ -34,7 +34,7 @@ public class AccessLogInterceptor implements HandlerInterceptor {
         SystemLogContext systemLogContext = new SystemLogContext()
                 .setUserId(SecurityContextHolder.getAuth().getUserId())
                 .setRequestNo(0L)// 可以使用雪花算法获取64位唯一id
-                .setIp(ServletUtil.getIp())
+                .setHost(ServletUtil.getIp())
                 .setUri(request.getRequestURI())
                 .setMethod(request.getMethod())
                 .setStartTime(new Date(System.currentTimeMillis()));
@@ -56,13 +56,28 @@ public class AccessLogInterceptor implements HandlerInterceptor {
         // format log
         StringBuilder requestStr = new StringBuilder();
         List<Object> requestArgs = new ArrayList<>();
+        printLine(requestStr, requestArgs);
+
+        // todo 日志入库
+        log.info(requestStr.toString(), requestArgs.toArray());
+
+        // 清理ThreadLocal
+        SystemLogContextHolder.clear();
+    }
+
+    /**
+     * 多行输出
+     */
+    private void printLines(StringBuilder requestStr, List<Object> requestArgs) {
+        SystemLogContext systemLogContext = SystemLogContextHolder.get();
+
         requestStr.append("\n=========================== AccessLog ===========================\n");
         requestStr.append(String.format("       %-10s: {}\n", "userId"));
         requestArgs.add(systemLogContext.getUserId());
         requestStr.append(String.format("       %-10s: {}\n", "requestNo"));
         requestArgs.add(systemLogContext.getRequestNo());
         requestStr.append(String.format("       %-10s: {}\n", "ip"));
-        requestArgs.add(systemLogContext.getIp());
+        requestArgs.add(systemLogContext.getHost());
         requestStr.append(String.format("       %-10s: {}\n", "uri"));
         requestArgs.add(systemLogContext.getUri());
         requestStr.append(String.format("       %-10s: {}\n", "method"));
@@ -76,11 +91,32 @@ public class AccessLogInterceptor implements HandlerInterceptor {
         requestStr.append(String.format("       %-10s: {}\n", "respMsg"));
         requestArgs.add(systemLogContext.getRespMsg());
         requestStr.append("=================================================================\n");
+    }
 
-        // todo 日志入库
-        log.info(requestStr.toString(), requestArgs.toArray());
+    /**
+     * 单行输出
+     */
+    private void printLine(StringBuilder requestStr, List<Object> requestArgs) {
+        SystemLogContext systemLogContext = SystemLogContextHolder.get();
 
-        // 清理ThreadLocal
-        SystemLogContextHolder.clear();
+        requestStr.append("[AccessLog] ");
+        requestStr.append(String.format("%s: {}, ", "userId"));
+        requestArgs.add(systemLogContext.getUserId());
+        requestStr.append(String.format("%s: {}, ", "requestNo"));
+        requestArgs.add(systemLogContext.getRequestNo());
+        requestStr.append(String.format("%s: {}, ", "host"));
+        requestArgs.add(systemLogContext.getHost());
+        requestStr.append(String.format("%s: {}, ", "uri"));
+        requestArgs.add(systemLogContext.getUri());
+        requestStr.append(String.format("%s: {}, ", "method"));
+        requestArgs.add(systemLogContext.getMethod());
+        requestStr.append(String.format("%s: {}, ", "startTime"));
+        requestArgs.add(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(systemLogContext.getStartTime()));
+        requestStr.append(String.format("%s: {} ms, ", "respTime"));
+        requestArgs.add(systemLogContext.getRespTime());
+        requestStr.append(String.format("%s: {}, ", "respCode"));
+        requestArgs.add(systemLogContext.getRespCode());
+        requestStr.append(String.format("%s: {}", "respMsg"));
+        requestArgs.add(systemLogContext.getRespMsg());
     }
 }

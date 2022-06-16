@@ -20,12 +20,12 @@ public interface MenuService {
     /**
      * 获取所有菜单
      */
-    List<Menu> loadAll();
+    List<MenuNode> loadAll();
 
     /**
      * 根据角色获取菜单
      */
-    List<Menu> loadRoleMenu(Long roleId);
+    List<MenuNode> loadRoleMenu(Long roleId);
 
     /**
      * 获取单个菜单信息

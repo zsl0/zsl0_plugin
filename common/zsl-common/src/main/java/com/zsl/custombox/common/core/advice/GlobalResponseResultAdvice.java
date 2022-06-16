@@ -2,6 +2,7 @@ package com.zsl.custombox.common.core.advice;
 
 import com.zsl.custombox.common.core.http.NotResponseBody;
 import com.zsl.custombox.common.core.http.ResponseResult;
+import com.zsl.custombox.common.core.http.ResponseResultStatus;
 import com.zsl.custombox.common.model.log.SystemLogContext;
 import com.zsl.custombox.common.util.JsonUtil;
 import com.zsl.custombox.common.util.SystemLogContextHolder;
@@ -40,15 +41,21 @@ public class GlobalResponseResultAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         // 若为 String类型，则直接返回 json字符串
         if (returnType.getGenericParameterType().equals(String.class)) {
-            SystemLogContextHolder.get().setRespCode(2000).setRespMsg("");
+            recordLog(ResponseResultStatus.SUCCESS.getCode(), "");
             return JsonUtil.obj2Str(body);
         }
         ResponseResult<Object> result = ResponseResult.success(body);
         SystemLogContext systemLogContext = SystemLogContextHolder.get();
         // 不走AccessLogInterceptor拦截器，systemLogContext.get为null
-        if (Objects.nonNull(systemLogContext)) {
-            systemLogContext.setRespCode(result.getCode()).setRespMsg(result.getMsg());
-        }
+        recordLog(result.getCode(), result.getMsg());
         return result;
     }
+
+    private void recordLog(int code, String msg) {
+        SystemLogContext systemLogContext = SystemLogContextHolder.get();
+        if (Objects.nonNull(systemLogContext)) {
+            systemLogContext.setRespCode(code).setRespMsg(msg);
+        }
+    }
+
 }

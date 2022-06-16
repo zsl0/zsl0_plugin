@@ -1,4 +1,4 @@
-package com.zsl.custombox.authentication.controller.vo;
+package com.zsl.custombox.authentication.controller.user.vo;
 
 import com.zsl.custombox.authentication.model.pojo.login.MenuNode;
 import io.swagger.annotations.ApiModel;

@@ -1,6 +1,6 @@
-package com.zsl.custombox.authentication.controller;
+package com.zsl.custombox.authentication.controller.user;
 
-import com.zsl.custombox.authentication.controller.vo.UserInfoVo;
+import com.zsl.custombox.authentication.controller.user.vo.UserInfoVo;
 import com.zsl.custombox.authentication.model.param.login.UsernamePasswordLoginParam;
 import com.zsl.custombox.authentication.model.pojo.login.MenuNode;
 import com.zsl.custombox.authentication.service.user.MenuService;
@@ -30,7 +30,7 @@ import java.util.List;
  * @Email 249269610@qq.com
  */
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/user/login")
 @Api(value = "登录模块", tags = "登录模块")
 public class LoginController {
 
@@ -57,8 +57,13 @@ public class LoginController {
         // 缓存用户信息
         tokenServer.set(accessTokenUuid, JsonUtil.obj2Str(defaultUserDetails));
 
+        List<MenuNode> menuNodes;
         // 查询菜单
-        List<MenuNode> menuNodes = menuService.loadUserMenu(defaultUserDetails.getUserId());
+        if (defaultUserDetails.isAdmin()) {
+            menuNodes = menuService.loadAll();
+        } else {
+            menuNodes = menuService.loadUserMenu(defaultUserDetails.getUserId());
+        }
 
         // 返回token
         return UserInfoVo.builder().accessToken(accessToken).menus(menuNodes.toArray(new MenuNode[0])).build();

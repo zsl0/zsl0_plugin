@@ -1,7 +1,14 @@
 package com.zsl.custombox.authentication.service.user.impl;
 
+import com.zsl.custombox.authentication.controller.user.Role2RoleVoMapper;
+import com.zsl.custombox.authentication.controller.user.param.RoleAddParam;
+import com.zsl.custombox.authentication.controller.user.param.RoleModifyParam;
+import com.zsl.custombox.authentication.controller.user.vo.RoleVo;
+import com.zsl.custombox.authentication.mapper.MenuMapper;
+import com.zsl.custombox.authentication.mapper.RoleMapper;
 import com.zsl.custombox.authentication.model.pojo.login.Role;
 import com.zsl.custombox.authentication.service.user.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,38 +20,36 @@ import java.util.List;
  */
 @Service
 public class RoleServiceImpl implements RoleService {
+
+    @Autowired
+    RoleMapper roleMapper;
+
+    @Autowired
+    MenuMapper menuMapper;
+
     @Override
-    public List<Role> queryByUserId(Long userId) {
-        return null;
+    public List<RoleVo> roles() {
+        List<Role> roles = roleMapper.queryAll();
+        return Role2RoleVoMapper.INSTANCE.convert(roles);
     }
 
     @Override
-    public List<Role> queryByMenuId(Long menuId) {
-        return null;
+    public void role(Long roleId) {
+
     }
 
     @Override
-    public Role queryByRoleId(Long roleId) {
-        return null;
+    public void addRole(RoleAddParam roleAddParam) {
+
     }
 
     @Override
-    public List<Role> queryAll() {
-        return null;
+    public void removeRole(Long roleId) {
+
     }
 
     @Override
-    public int add(Role role) {
-        return 0;
-    }
+    public void modifyRole(RoleModifyParam roleModifyParam) {
 
-    @Override
-    public int update(Role role) {
-        return 0;
-    }
-
-    @Override
-    public int remove(Long roleId) {
-        return 0;
     }
 }

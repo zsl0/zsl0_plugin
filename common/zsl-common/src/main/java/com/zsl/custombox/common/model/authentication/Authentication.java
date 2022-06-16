@@ -19,4 +19,6 @@ public interface Authentication {
     boolean isAuthenticated();
 
     String[] getRoles();
+
+    boolean isAdmin();
 }

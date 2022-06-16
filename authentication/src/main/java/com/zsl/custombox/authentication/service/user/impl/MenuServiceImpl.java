@@ -42,13 +42,15 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> loadAll() {
-        return menuMapper.queryAll();
+    public List<MenuNode> loadAll() {
+        List<Menu> menus = menuMapper.queryAll();
+        return collectMenu(menus);
     }
 
     @Override
-    public List<Menu> loadRoleMenu(Long roleId) {
-        return menuMapper.queryByRoleId(roleId);
+    public List<MenuNode> loadRoleMenu(Long roleId) {
+        List<Menu> menus = menuMapper.queryByRoleId(roleId);
+        return collectMenu(menus);
     }
 
     @Override

@@ -40,6 +40,11 @@ public class SecurityContextHolder {
             public String[] getRoles() {
                 return new String[0];
             }
+
+            @Override
+            public boolean isAdmin() {
+                return false;
+            }
         });
         setAuth(authentication);
         return authentication;
