@@ -41,7 +41,7 @@ public class JWTUtil {
      * 生成token
      */
     @Nullable
-    public static String generateToken(String subject, Date expire) {
+    public static String generateToken(String subject, Date expire, String uuid) {
 //        Assert.notNull(secret, "secret(密钥) 不能为空");
 //        Assert.notNull(issuer, "issuer(发行人) 不能为空");
 
@@ -50,7 +50,7 @@ public class JWTUtil {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             token = JWT.create()
                     .withIssuer(issuer)
-                    .withClaim("uuid", getUUID())
+                    .withClaim("uuid", uuid)
                     .withSubject(subject)
                     .withExpiresAt(expire)
                     .sign(algorithm);
@@ -60,6 +60,34 @@ public class JWTUtil {
         return token;
     }
 
+
+    /**
+     * 生成token
+     * @param subject 主题
+     * @param expire 过期时间
+     * @param authenticationJson 认证信息json字符串
+     * @return
+     */
+    @Nullable
+    public static String generateToken(String subject, Date expire, String uuid, String authenticationJson) {
+//        Assert.notNull(secret, "secret(密钥) 不能为空");
+//        Assert.notNull(issuer, "issuer(发行人) 不能为空");
+
+        String token = null;
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            token = JWT.create()
+                    .withIssuer(issuer)
+                    .withClaim("uuid", uuid)
+                    .withClaim("Authentication", authenticationJson)
+                    .withSubject(subject)
+                    .withExpiresAt(expire)
+                    .sign(algorithm);
+        } catch (JWTCreationException exception) {
+            //Invalid Signing configuration / Couldn't convert Claims.
+        }
+        return token;
+    }
     /**
      * 获取过期时间
      */

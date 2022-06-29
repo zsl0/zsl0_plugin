@@ -25,16 +25,26 @@ public class TokenUtil {
     /**
      * 创建唯一Token, 凭借Payload中uuid作为当前用户的唯一凭证，与用户进行绑定
      */
-    public static String createAccessToken() {
+    public static String createAccessToken(String uuid) {
         Date expire = DateUtil.offsetMinute(new Date(), ACCESS_TOKEN_MINUTE_EXPIRE);
         // 使用 uuid 作为 键值
-        return JWTUtil.generateToken("access_token", expire);
+        return JWTUtil.generateToken("access_token", expire, uuid);
     }
 
-    public static String createRefreshToken() {
+    /**
+     * 创建唯一Token, 凭借Payload中uuid作为当前用户的唯一凭证，与用户进行绑定
+     */
+    public static String createAccessToken(String uuid, String authenticationJson) {
+        Date expire = DateUtil.offsetMinute(new Date(), ACCESS_TOKEN_MINUTE_EXPIRE);
+        // 使用 uuid 作为 键值
+        return JWTUtil.generateToken("access_token", expire, uuid, authenticationJson);
+    }
+
+
+    public static String createRefreshToken(String uuid) {
         Date expire = DateUtil.offsetMinute(new Date(), REFRESH_TOKEN_MINUTE_EXPIRE);
         // 使用 uuid 作为 键值
-        return JWTUtil.generateToken("refresh_token", expire);
+        return JWTUtil.generateToken("refresh_token", expire, uuid);
     }
 
     /**
@@ -42,11 +52,24 @@ public class TokenUtil {
      */
     @Nullable
     public static String getAccessTokenUuid(String token) {
-        String subject = JWTUtil.getClaim(token, "subject");
-        if (subject == null || "access_token".equals(subject)) {
+        String subject = JWTUtil.getClaim(token, "sub");
+        if (subject == null || !"access_token".equals(subject)) {
             throw new NotAccessTokenException("token认证失败，不是access_token!");
         }
         return JWTUtil.getClaim(token, "uuid");
+    }
+
+    /**
+     * 获取access_token存储Authentication信息
+     */
+    @Nullable
+    public static String getAccessTokenAuthentication(String token) {
+        String subject = JWTUtil.getClaim(token, "sub");
+        if (!"access_token".equals(subject)) {
+            throw new NotAccessTokenException("token认证失败，不是access_token!");
+        }
+
+        return JWTUtil.getClaim(token, "Authentication");
     }
 
     /**
@@ -54,8 +77,8 @@ public class TokenUtil {
      */
     @Nullable
     public static String getRefreshTokenUuid(String token) {
-        String subject = JWTUtil.getClaim(token, "subject");
-        if (subject == null || "refresh_token".equals(subject)) {
+        String subject = JWTUtil.getClaim(token, "sub");
+        if (!"refresh_token".equals(subject)) {
             throw new NotAccessTokenException("token认证失败，refresh_token!");
         }
         return JWTUtil.getClaim(token, "uuid");

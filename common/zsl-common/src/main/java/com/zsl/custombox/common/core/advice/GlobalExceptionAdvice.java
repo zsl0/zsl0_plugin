@@ -29,14 +29,14 @@ public class GlobalExceptionAdvice {
     public ResponseResult<String> global(Throwable t) {
         // 特殊处理
         if (t instanceof ApiException) {
-            return ResponseResult.custom(ResponseResultStatus.SUCCESS.getCode(), t.getMessage(), null);
+            return ResponseResult.custom(ResponseResultStatus.BAD_REQUEST.getCode(), t.getMessage(), null);
         } else if (t instanceof GlobalException) {
             return ResponseResult.custom(((GlobalException) t).getCode(), t.getMessage(), null);
         }
 
         // 打印错误信息
         t.printStackTrace();
-        return ResponseResult.success(t.getMessage());
+        return ResponseResult.failed(t.getMessage());
     }
 
 
