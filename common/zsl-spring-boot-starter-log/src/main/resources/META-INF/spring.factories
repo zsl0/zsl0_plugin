@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.AutoConfigurationImportListener=\
-com.zsl.custombox.log.config.LogAutoConfiguration
